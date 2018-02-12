@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Email Message Reporting</title>
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+    <script type="text/javascript" src="node_modules/core-js/client/core.js"></script>
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="node_modules/easyews/easyEws.js" ></script>
+    <script type="text/javascript" src="index.js"></script>
+    <link rel="stylesheet" href="node_modules/office-ui-fabric-js/dist/css/fabric.min.css" />
+    <link rel="stylesheet" href="node_modules/office-ui-fabric-js/dist/css/fabric.components.css" />
+    <script type="text/javascript" src="node_modules/office-ui-fabric-js/dist/js/fabric.min.js"></script>
+    <!-- NOTE: https://dev.office.com/fabric-js/GetStarted/GetStarted.html -->
+</head>
+<body>
+    <div id="content-header">
+        <div class="padding">
+            <p class="ms-font-xl ms-fontColor-themeDarkAlt ms-fontWeight-semilight">Report</p>
+        </div>
+    </div>
+    <div id="content-main" class="ms-Grid">
+        <div class="ms-Grid-row">
+            <div class="ms-Grid-col ms-u-sm12">
+                <div class="ms-font-m ms-fontWeight-semilight">
+                    <p>If you believe this email to be suspicious, press the Report button below to send the email to security.
+                       Please provide any additional comments you feel are important as well:</p>
+                </div>
+                <div class="ms-ChoiceFieldGroup" id="reasonfieldgroup" role="radiogroup">
+                        
+                        <div class="ms-ChoiceFieldGroup-title">
+                            <label class="ms-Label is-required">Reason:</label>
+                        </div>
+    
+                        <ul class="ms-ChoiceFieldGroup-list">
+                            <li class="ms-RadioButton">
+                                <input tabindex="-1" type="radio" class="ms-RadioButton-input" value="spam" name="reasonfieldgroup">
+                                <label role="radio" class="ms-RadioButton-field" tabindex="0" aria-checked="false" name="reasonfieldgroup">
+                                    <span class="ms-Label">This message is Spam</span> 
+                                </label>
+                            </li>
+    
+                            <li class="ms-RadioButton">
+                                <input tabindex="-1" type="radio" class="ms-RadioButton-input" value="phish" name="reasonfieldgroup">
+                                <label role="radio" class="ms-RadioButton-field" tabindex="0" aria-checked="false" name="reasonfieldgroup">
+                                    <span class="ms-Label">This message is a Phishing attempt</span> 
+                                </label>
+                            </li>
+    
+                            <li class="ms-RadioButton">
+                                <input tabindex="-1" type="radio" class="ms-RadioButton-input" value="virus" name="reasonfieldgroup">
+                                <label role="radio" class="ms-RadioButton-field" tabindex="0" aria-checked="false" name="reasonfieldgroup">
+                                    <span class="ms-Label">This message contains a Virus/Attachment</span> 
+                                </label>
+                            </li>
+    
+                            <li class="ms-RadioButton">
+                                <input tabindex="-1" type="radio" class="ms-RadioButton-input" value="threat" name="reasonfieldgroup">
+                                <label role="radio" class="ms-RadioButton-field" tabindex="0" aria-checked="false" name="reasonfieldgroup">
+                                    <span class="ms-Label">This message makes a Threat</span> 
+                                </label>
+                            </li>
+    
+                            <li class="ms-RadioButton">
+                                <input tabindex="-1" type="radio" class="ms-RadioButton-input" value="inappropriate" name="reasonfieldgroup">
+                                <label role="radio" class="ms-RadioButton-field" tabindex="0" aria-checked="false" name="reasonfieldgroup">
+                                    <span class="ms-Label">This message contains Inappropriate Content.</span> 
+                                </label>
+                            </li>
+
+                            <li class="ms-RadioButton">
+                                <input tabindex="-1" type="radio" class="ms-RadioButton-input" value="other" name="reasonfieldgroup">
+                                <label role="radio" class="ms-RadioButton-field" tabindex="0" aria-checked="false" name="reasonfieldgroup">
+                                    <span class="ms-Label">There is another reason I will explain below:</span> 
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                <div class="ms-TextField ms-TextField--multiline">
+                    <label class="ms-Label">More information / Comment</label>
+                    <textarea class="ms-TextField-field ms-TextField--multiline" id="forward-comment" value="" placeholder="Specify more information here..."></textarea>
+                </div>
+                <br />
+                <div class="ms-Button ms-Button--primary" id="forward-button">
+                    <span class="ms-Button-label">Report to Security</span>
+                    <span class="ms-Button-description">Sends the currently open email to security for review.</span>
+                </div>
+                <div class="ms-Button ms-Button" id="cancel-button">
+                    <span class="ms-Button-label">Cancel</span>
+                    <span class="ms-Button-description">Cancels and does not report this message.</span>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="ms-Grid-row" id="result">
+        </div>
+    </div>
+    <div class="ms-MessageBanner">
+        <div class="ms-MessageBanner-content">
+            <div class="ms-MessageBanner-text">
+            <div class="ms-MessageBanner-clipper">
+                <div class="ms-font-s-plus ms-fontWeight-semibold" id="notificationHeader"></div>
+                <div class="ms-font-s ms-fontWeight-semilight" id="notificationBody"></div>
+            </div>
+            </div>
+            <button class="ms-MessageBanner-expand" style="visibility:hidden">
+                <i class="ms-Icon ms-Icon--ChevronDown"></i>
+            </button>
+            <div class="ms-MessageBanner-action" style="visibility:hidden"></div>
+        </div>
+        <button class="ms-MessageBanner-close">
+            <i class="ms-Icon ms-Icon--Clear"></i>
+        </button>
+    </div>
+</body>
+</html>
